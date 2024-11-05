@@ -16,6 +16,7 @@ public class LoginPage extends BasePage {
   public LoginPage(WebDriver driver) {
       super(driver);
   }
+
     @FindBy(css = "a[data-target='#signInModal']")
     private WebElement signup;
 
