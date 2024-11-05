@@ -23,9 +23,9 @@ jobs:
         run: mvn -B clean verify --file pom.xml
 
       # Generación de reportes de Cucumber
-      - name: Store Cucumber Report
+      - name: Upload Test Report
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: cucumber-report
-          path: src/test/cucumber-reports/cucumber-reports.html
+          path: target/cucumber-reports/cucumber-reports.html
