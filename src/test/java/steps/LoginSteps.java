@@ -3,24 +3,20 @@ package steps;
 import com.github.javafaker.Faker;
 import io.cucumber.java.After;
 import io.cucumber.java.en.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import pages.BasePage;
 import pages.LoginPage;
-import java.util.Random;
 
 
 public class LoginSteps {
     WebDriver driver;
     LoginPage loginPage;
-    Faker usuarioRandom = new Faker();
-    int numero = new Random().nextInt(1000)+1;
 
 
     @Given("Abro la ventana de inicio")
     public void abrirPaginaDeInicio() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        BasePage basePage = new BasePage(null);
+        driver = basePage.getDriver();
         driver.get("https://www.demoblaze.com/");
         loginPage = new LoginPage(driver);
     }
@@ -28,8 +24,8 @@ public class LoginSteps {
     @When("ingreso usuario y contrasena")
     public void ingresarUsuarioYContrasena() {
         loginPage.clickSignupButton();
-        loginPage.enterUsername(usuarioRandom.name().firstName()+numero);
-        loginPage.enterPassword(usuarioRandom.name().username());
+        loginPage.enterUsername(loginPage.nombreRandom());
+        loginPage.enterPassword(loginPage.appellidoRandom());
     }
 
     @And("hago click en el boton sing up")
@@ -38,8 +34,8 @@ public class LoginSteps {
     }
 
     @Then("alerta de registro exitoso")
-    public void confirmarRegistroExitoso(){
-       loginPage.registroExtisoso();
+    public void confirmarRegistroExitoso() {
+        loginPage.registroExtisoso();
     }
 
     @After
