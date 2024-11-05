@@ -3,18 +3,14 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+      - cucumber
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up JDK 17
         uses: actions/setup-java@v2
@@ -26,30 +22,10 @@ jobs:
       - name: Build and Run Tests with Maven
         run: mvn -B clean verify --file pom.xml
 
-      # Paso opcional: Generación de reportes de Cucumber
+      # Generación de reportes de Cucumber
       - name: Store Cucumber Report
-        if: always() # este paso se ejecutará sin importar si la build falla o no
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: cucumber-report
           path: src/test/cucumber-reports
-
-      # Paso opcional: Generación de reportes con Allure
-      - name: Setup Allure for Report Generation
-        run: |
-          ALLURE_VERSION=2.17.3
-          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
-          tar -zxvf allure-${ALLURE_VERSION}.tgz
-          sudo mv allure-${ALLURE_VERSION} /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-
-      - name: Generate Allure Report
-        if: always() # Ejecuta siempre este paso para generar los reportes incluso si las pruebas fallan
-        run: allure generate --clean
-
-      - name: Upload Allure Report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-report
-          path: allure-report
