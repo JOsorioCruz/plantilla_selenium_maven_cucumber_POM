@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v2
@@ -29,7 +29,7 @@ jobs:
       # Paso opcional: Generación de reportes de Cucumber
       - name: Store Cucumber Report
         if: always() # este paso se ejecutará sin importar si la build falla o no
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: cucumber-report
           path: src/test/cucumber-reports
@@ -49,7 +49,7 @@ jobs:
 
       - name: Upload Allure Report
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: allure-report
