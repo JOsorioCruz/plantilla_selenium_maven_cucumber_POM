@@ -3,7 +3,7 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - cucumber
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
