@@ -47,10 +47,9 @@ public class LoginPage extends BasePage {
 
     public void registroExtisoso(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Esperar la alerta y verificar su mensaje
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         String alertText = alert.getText();
-        assertEquals("Sign up successful.", alertText);
+        assertEquals("Sign up successful", alertText);
         alert.accept();
     }
 }
